@@ -12,4 +12,4 @@ function truncate(
     return substring + '...';
 
 }
-module.exports = { truncate };
+module.exports = {truncate};
