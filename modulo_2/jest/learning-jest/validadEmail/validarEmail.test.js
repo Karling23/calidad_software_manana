@@ -1,26 +1,19 @@
-const { obtenerFrutas,
-    contienePalabra,
-    agregarElemento } = require('./toContainDemo');
+const { validarEmail } = require('./validarEmail');
 
-describe('toContain Matcher', () => {
-    test('Happy path: elemento dentro de array', () => {
-        const frutas = obtenerFrutas();
-        expect(frutas).toContain('pera');
+describe('validar Email', () => {
+
+    test('Happy path: devuelva false cuando el email es inválido', () => {
+        const response = validarEmail('fran.n.d');
+        expect(response).toBe(false);
     });
-    test('Sad path: palabra dentro de texto',
-        () => {
-            const response = contienePalabra('Jest es super');
-            expect(response).toBe(true);
-        });
-    test('Sad path: elemento no encontrado o tipo incorrecto',
-        () => {
-            const frutas = obtenerFrutas();
-            expect(frutas).not.toContain('banana');
-        });
-    test('Sad path: elementos invalidos',
-        () => {
-            const response = agregarElemento({},'x');
-            expect(response)
-                .toThrow('lista debe ser un array');
-        });
+
+    test('Happy path: devuelva true cuando el email es válido', () => {
+        const response = validarEmail('fran.nd@example.com');
+        expect(response).toBe(false);
+    });
+
+    test('Sad path: cuando el email no es string debe lanzar error', () => {
+        expect(() => validarEmail(3455))
+            .toThrow('email debe ser string');
+    });
 });

@@ -1,30 +1,36 @@
 const { deepMerge, normalizarAlumno } = require('./deepMerge');
 
 describe('Igualdad profunda', () => {
-    test('Happy path: deeoMerge' + 'combina objetos anidados por valor', () => {
+    test('Happy path: deepMerge combina objetos anidados por valor', () => {
         const a = {
-            user: {nombre: 'Ana', rol: 'Estudiante'}, activo: true
+            user: { nombre: 'Ana', rol: 'Estudiante' },
+            activo: true
         };
         const b = {
-            user: {rol: 'tutor'}, activo: true, extra: 1
+            user: { rol: 'tutor' },
+            activo: true,
+            extra: 1
         };
-        const response = deepMerge(a,b)
+        const response = deepMerge(a, b);
         expect(response).toEqual({
-            user: 
-            {nombre: 'Ana', rol: 'tutor'}, activo: true, estra: 1
+            user: { nombre: 'Ana', rol: 'tutor' },
+            activo: true,
+            extra: 1
         });
     });
-    test('Happy path: deeoMerge' + 'retorna estructura con promedio', () => {
-        const alumno = {nombre: 'Ana', notas: [8,9,7]};
+
+    test('Happy path: normalizarAlumno retorna estructura con promedio', () => {
+        const alumno = { nombre: 'Ana', notas: [8, 9, 7] };
         const response = normalizarAlumno(alumno);
         expect(response).toEqual({
-            user: 
-            {nombre: 'Ana', notas: [8,9,7]}, promedio: 8
+            nombre: 'Ana',
+            notas: [8, 9, 7],
+            promedio: 8
         });
     });
-    test('Sad path: deep merge con parámetros invalidos', 
-        () => {
-        expect(() => deepMerge(null, {})).toThrow('b debe ser objeto');
+
+    test('Sad path: deep merge con parámetros invalidos', () => {
+        expect(() => deepMerge(null, {})).toThrow('a debe ser objeto');
         expect(() => deepMerge({}, [])).toThrow('b debe ser objeto');
     });
 });
